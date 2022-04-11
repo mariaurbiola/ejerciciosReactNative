@@ -3,6 +3,7 @@ import Constants from 'expo-constants';
 import Calendario from './CalendarioComponent';
 import Contacto from './ContactoComponent';
 import DetalleExcursion from './DetalleExcursionComponent';
+import QuienesSomos from './QuienesSomosComponent';
 import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -64,6 +65,30 @@ function ContactoNavegador() {
     );
 }
 
+
+function QuienesSomosNavegador() {
+  return (
+      <Stack.Navigator
+          initialRouteName="Quienes somos"
+          screenOptions={{
+              headerMode: 'screen',
+              headerTintColor: '#fff',
+              headerStyle: { backgroundColor: '#015afc' },
+              headerTitleStyle: { color: '#fff' },
+          }}
+      >
+          <Stack.Screen
+              name="Quienes Somos"
+              component={QuienesSomos}
+              options={{
+                  title: 'QuienesSomos2',
+              }}
+          />
+      </Stack.Navigator>
+  );
+}
+
+
 function HomeNavegador() {
   return (
       <Stack.Navigator
@@ -100,6 +125,7 @@ function DrawerNavegador() {
             <Drawer.Screen name="Home" component={HomeNavegador} />
             <Drawer.Screen name="Calendario" component={CalendarioNavegador} />
             <Drawer.Screen name="Contacto" component={ContactoNavegador} />
+            <Drawer.Screen name="Quienes Somos" component={QuienesSomosNavegador} />
         </Drawer.Navigator>
 
     );
