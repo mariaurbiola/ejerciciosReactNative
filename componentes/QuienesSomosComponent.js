@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { ListItem, Avatar, Card } from 'react-native-elements';
-import { Text, SafeAreaView,  ScrollView, FlatList } from 'react-native';
+import { ScrollView, FlatList } from 'react-native';
 
 import Historia from './HistoriaComponent';
 
 import { ACTIVIDADES } from '../comun/actividades';
-//import ActividadesItem from './ActividadesComponent'
 import { colorGaztaroaClaro, colorGaztaroaOscuro, baseUrl} from '../comun/comun';
 
 /*function Actividades () {

@@ -101,7 +101,7 @@ function QuienesSomosNavegador({ navigation }) {
               name="Quienes Somos"
               component={QuienesSomos}
               options={{
-                  title: 'QuienesSomos2',
+                  title: 'Quienes Somos',
               }}
           />
       </Stack.Navigator>
