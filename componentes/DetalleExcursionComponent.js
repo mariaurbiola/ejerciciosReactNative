@@ -5,7 +5,6 @@ import { COMENTARIOS } from '../comun/comentarios';
 import { EXCURSIONES } from '../comun/excursiones';
 import { colorGaztaroaClaro, colorGaztaroaOscuro, baseUrl} from '../comun/comun';
 
-
 function RenderComentario(props) {
 
   const comentarios = props.comentarios;

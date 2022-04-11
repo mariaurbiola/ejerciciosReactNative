@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Card} from 'react-native-elements';
-import { Text, SafeAreaView } from 'react-native';
+import { ListItem, Avatar, Card } from 'react-native-elements';
+import { Text, SafeAreaView,  ScrollView, FlatList } from 'react-native';
 
 import Historia from './HistoriaComponent';
-import ActividadesItem from './ActividadesComponent'
+
+import { ACTIVIDADES } from '../comun/actividades';
+//import ActividadesItem from './ActividadesComponent'
 import { colorGaztaroaClaro, colorGaztaroaOscuro, baseUrl} from '../comun/comun';
 
 /*function Actividades () {
@@ -33,26 +35,58 @@ import { colorGaztaroaClaro, colorGaztaroaOscuro, baseUrl} from '../comun/comun'
 
 }*/
 
+function RenderActividad(props) {
+
+    const actividades = props.actividades;
+            
+    const renderActividadItem = ({item, index}) => {
+        
+        return (
+            <ListItem
+                key={index}
+                bottomDivider>
+                <Avatar source={{uri: baseUrl + item.imagen}} />
+                <ListItem.Content>
+                    <ListItem.Title>{item.nombre}</ListItem.Title>
+                    <ListItem.Subtitle>{item.descripcion}</ListItem.Subtitle>
+                </ListItem.Content>
+            </ListItem> 
+        );
+    };
+    
+    return (
+        <Card>
+            <Card.Title >Actividades y Recursos</Card.Title>
+            <Card.Divider/>
+            <FlatList 
+                data={actividades}
+                renderItem={renderActividadItem}
+                keyExtractor={item => item.id.toString()}
+            />
+        </Card>
+    );
+}
+
+
 class QuienesSomos extends Component {
-    /*constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
             actividades: ACTIVIDADES
         };
-    };*/
+    };
 
-    render() {
-
-        return (
-            
-            <SafeAreaView>
+    render(){
+        return(
+            <ScrollView>
                 <Historia />
-                
-                <ActividadesItem />
-            </SafeAreaView>       
-            
+    
+                <RenderActividad
+                    actividades={this.state.actividades}
+                />
+            </ScrollView>
         );
-    }
+      } 
 
     //const { navigate } = this.props.navigation;    
 
