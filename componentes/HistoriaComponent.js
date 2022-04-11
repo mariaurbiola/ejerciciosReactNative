@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { Card } from 'react-native-elements';
+import { colorGaztaroaClaro, colorGaztaroaOscuro, baseUrl} from '../comun/comun';
 
 function RenderHistoria(props) {
 

@@ -4,6 +4,7 @@ import { Text, SafeAreaView } from 'react-native';
 
 import Historia from './HistoriaComponent';
 import ActividadesItem from './ActividadesComponent'
+import { colorGaztaroaClaro, colorGaztaroaOscuro, baseUrl} from '../comun/comun';
 
 /*function Actividades () {
     constructor(props) {

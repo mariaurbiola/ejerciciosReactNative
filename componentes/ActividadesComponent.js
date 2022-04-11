@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ListItem, Avatar, Card } from 'react-native-elements';
 import { SafeAreaView, FlatList, Text} from 'react-native';
 import { ACTIVIDADES } from '../comun/actividades';
+import { colorGaztaroaClaro, colorGaztaroaOscuro, baseUrl} from '../comun/comun';
 
 class ActividadesItem extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class ActividadesItem extends Component {
                 key={index}
                 //onPress={() => navigate('DetalleExcursion', { excursionId: item.id })}
                 bottomDivider>
-                <Avatar source={require('./imagenes/40Años.png')} />
+                <Avatar source={{uri: baseUrl + item.imagen}} />
                 <ListItem.Content>
                     <ListItem.Title>{item.nombre}</ListItem.Title>
                     <ListItem.Subtitle>{item.descripcion}</ListItem.Subtitle>
