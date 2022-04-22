@@ -65,6 +65,21 @@ function RenderExcursion(props) {
         }
 }
 
+
+//Virtualized LIst para sustituir a ScrollView
+const VirtualizedList = ({children}) => {
+  return (
+      <FlatList
+          data={[]}
+          keyExtractor={() => "key"}
+          renderItem={null}
+          ListHeaderComponent={
+              <>{children}</>
+          }
+      />
+  )
+}
+
 class DetalleExcursion extends Component {
   constructor(props) {
       super(props);
@@ -84,7 +99,7 @@ class DetalleExcursion extends Component {
   render(){
     const {excursionId} = this.props.route.params;
     return(
-        <ScrollView>
+        <VirtualizedList>
             <RenderExcursion
                 excursion={this.state.excursiones[+excursionId]}
                 favorita={this.state.favoritos.some(el => el === excursionId)}
@@ -94,7 +109,7 @@ class DetalleExcursion extends Component {
             <RenderComentario
                 comentarios={this.state.comentarios.filter((comentario) => comentario.excursionId === excursionId)}
             />
-        </ScrollView>
+        </VirtualizedList>
     );
   } 
 

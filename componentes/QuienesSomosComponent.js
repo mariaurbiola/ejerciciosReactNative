@@ -1,38 +1,35 @@
 import React, { Component } from 'react';
 import { ListItem, Avatar, Card } from 'react-native-elements';
-import { ScrollView, FlatList } from 'react-native';
-
-import Historia from './HistoriaComponent';
-
+import { ScrollView, FlatList, View, SafeAreaView, Text } from 'react-native';
 import { ACTIVIDADES } from '../comun/actividades';
 import { colorGaztaroaClaro, colorGaztaroaOscuro, baseUrl} from '../comun/comun';
 
-/*function Actividades () {
+
+function RenderHistoria(props) {
+    return(
+    <Card>
+        <Card.Title >Un poquito de historia</Card.Title>
+        <Card.Divider/>       
+        <Text style={{margin: 20}}>
+        El nacimiento del club de montaña Gaztaroa se remonta a la primavera de 1976 cuando jóvenes aficionados a la montaña y pertenecientes a un club juvenil decidieron crear la sección montañera de dicho club. Fueron unos comienzos duros debido sobre todo a la situación política de entonces. Gracias al esfuerzo económico de sus socios y socias se logró alquilar una bajera. Gaztaroa ya tenía su sede social.
+        
+        Desde aquí queremos hacer llegar nuestro agradecimiento a todos los montañeros y montañeras que alguna vez habéis pasado por el club aportando vuestro granito de arena.
+        
+        Gracias!
+
+        </Text>       
+    </Card>
+    );      
+}
+class Historia extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            actividades: ACTIVIDADES
-    };
-
-    const renderActividadesItem = ({item, index}) => {
         
-        return (
-            <ListItem
-                key={index}
-                //onPress={() => navigate('DetalleExcursion', { excursionId: item.id })}
-                bottomDivider>
-                <Avatar source={require('./imagenes/40Años.png')} />
-                <ListItem.Content>
-                    <ListItem.Title>{item.nombre}</ListItem.Title>
-                    <ListItem.Subtitle>{item.descripcion}</ListItem.Subtitle>
-                </ListItem.Content>
-            </ListItem> 
-        );
-    };
-
-    
-
-}*/
+    }
+  render(){
+      return(<RenderHistoria />);
+  } 
+}
 
 function RenderActividad(props) {
 
@@ -43,7 +40,8 @@ function RenderActividad(props) {
         return (
             <ListItem
                 key={index}
-                bottomDivider>
+                bottomDivider
+            >
                 <Avatar source={{uri: baseUrl + item.imagen}} />
                 <ListItem.Content>
                     <ListItem.Title>{item.nombre}</ListItem.Title>
@@ -51,13 +49,12 @@ function RenderActividad(props) {
                 </ListItem.Content>
             </ListItem> 
         );
-    };
-    
+    };  
     return (
         <Card>
             <Card.Title >Actividades y Recursos</Card.Title>
             <Card.Divider/>
-            <FlatList 
+            <FlatList  
                 data={actividades}
                 renderItem={renderActividadItem}
                 keyExtractor={item => item.id.toString()}
@@ -66,6 +63,19 @@ function RenderActividad(props) {
     );
 }
 
+//Virtualized LIst para sustituir a ScrollView
+const VirtualizedList = ({children}) => {
+    return (
+        <FlatList
+            data={[]}
+            keyExtractor={() => "key"}
+            renderItem={null}
+            ListHeaderComponent={
+                <>{children}</>
+            }
+        />
+    )
+}
 
 class QuienesSomos extends Component {
     constructor(props) {
@@ -77,19 +87,17 @@ class QuienesSomos extends Component {
 
     render(){
         return(
-            <ScrollView>
+            <VirtualizedList>
+                
                 <Historia />
     
                 <RenderActividad
                     actividades={this.state.actividades}
                 />
-            </ScrollView>
+                
+            </VirtualizedList>
         );
       } 
-
-    //const { navigate } = this.props.navigation;    
-
-    
 }
 
 export default QuienesSomos;
