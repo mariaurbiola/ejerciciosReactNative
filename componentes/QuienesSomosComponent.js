@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { ListItem, Avatar, Card } from 'react-native-elements';
 import { ScrollView, FlatList, View, SafeAreaView, Text } from 'react-native';
-import { ACTIVIDADES } from '../comun/actividades';
 import { colorGaztaroaClaro, colorGaztaroaOscuro, baseUrl} from '../comun/comun';
+
+//CambioREDUX
+//import { ACTIVIDADES } from '../comun/actividades';
+import { connect } from 'react-redux';
+
 
 
 function RenderHistoria(props) {
@@ -34,6 +38,8 @@ class Historia extends Component {
 function RenderActividad(props) {
 
     const actividades = props.actividades;
+    
+    //console.log('Actividades en QuinenesSomos: '+JSON.stringify(actividades));
             
     const renderActividadItem = ({item, index}) => {
         
@@ -54,11 +60,13 @@ function RenderActividad(props) {
         <Card>
             <Card.Title >Actividades y Recursos</Card.Title>
             <Card.Divider/>
-            <FlatList  
+            
+            <FlatList 
                 data={actividades}
                 renderItem={renderActividadItem}
                 keyExtractor={item => item.id.toString()}
             />
+
         </Card>
     );
 }
@@ -76,14 +84,22 @@ const VirtualizedList = ({children}) => {
         />
     )
 }
+const mapStateToProps = state => {
+
+    return {
+      actividades: state.actividades
+    }
+}
 
 class QuienesSomos extends Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props);
         this.state = {
             actividades: ACTIVIDADES
         };
-    };
+    };*/
+    
+    
 
     render(){
         return(
@@ -92,7 +108,8 @@ class QuienesSomos extends Component {
                 <Historia />
     
                 <RenderActividad
-                    actividades={this.state.actividades}
+                    actividades={this.props.actividades.actividades}
+                   
                 />
                 
             </VirtualizedList>
@@ -100,4 +117,4 @@ class QuienesSomos extends Component {
       } 
 }
 
-export default QuienesSomos;
+export default connect(mapStateToProps)(QuienesSomos);

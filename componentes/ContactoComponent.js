@@ -3,8 +3,16 @@ import { Text } from 'react-native';
 import { Card } from 'react-native-elements';
 import { colorGaztaroaClaro, colorGaztaroaOscuro, baseUrl} from '../comun/comun';
 
-function RenderContacto(props) {
+//Lo siguiente es para REDUX, aqui no haría falta pero lo pongo por si acaso para luego
+import { connect } from 'react-redux';
+const mapStateToProps = state => {
 
+    return {
+      
+    }
+}
+
+function RenderContacto(props) {
     return(
     <Card>
         <Card.Title>Información de contacto</Card.Title>
@@ -33,9 +41,7 @@ function RenderContacto(props) {
 class Contacto extends Component {
     constructor(props) {
         super(props);
-        /*this.state = {
-            excursiones: EXCURSIONES
-        };*/
+        
     }
 
 
@@ -44,4 +50,4 @@ class Contacto extends Component {
   } 
 }
 
-export default Contacto;
+export default connect(mapStateToProps)(Contacto);
