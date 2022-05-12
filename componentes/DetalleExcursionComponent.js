@@ -3,7 +3,7 @@ import { Card, Icon } from 'react-native-elements';
 import { Text, View, ScrollView, FlatList, Modal, Alert, StyleSheet, Pressable } from 'react-native';
 import { colorGaztaroaClaro, colorGaztaroaOscuro, baseUrl } from '../comun/comun';
 import { connect } from 'react-redux';
-import { postFavorito } from '../redux/ActionCreators';
+import { postComentario, postFavorito } from '../redux/ActionCreators';
 import ModalComentarios from './ModalComentsComponent';
 
 const mapStateToProps = state => {
@@ -17,7 +17,9 @@ const mapStateToProps = state => {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  postFavorito: (excursionId) => dispatch(postFavorito(excursionId))
+  postFavorito: (excursionId) => dispatch(postFavorito(excursionId)),
+  postComentario: (excursionId, valoracion, autor, comentario) => dispatch(postComentario(excursionId, valoracion, autor, comentario))
+
 })
 
 function RenderComentario(props) {
@@ -95,43 +97,8 @@ function RenderExcursion(props) {
   }
 }
 
-function añadirComentario() {
-  console.log('Nuevo comentario');
-  const modalVisible = true;
-  return (
-    <View>
-      <Modal
-        animationType="slide"
-        visible={true}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          modalVisible = false;
-        }}
-      >
-        <View>
-          <Text>Hello Word!</Text>
-        </View>
-        {/* <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
-          </View>
-        </View> */}
-      </Modal>
-      {/* <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </Pressable> */}
-    </View>
-  );
-}
+
+
 
 //Virtualized LIst para sustituir a ScrollView
 const VirtualizedList = ({ children }) => {
@@ -149,8 +116,56 @@ const VirtualizedList = ({ children }) => {
 
 class DetalleExcursion extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+        valoracion: 3,
+        autor: '',
+        comentario: '',
+        showModal: false
+    }
+  } 
+
+  toggleModal() {
+    this.setState({showModal: !this.state.showModal});
+  }
+
+
+  resetForm() {
+    this.setState({
+        valoracion: 34,
+        autor: 'reset',
+        comentario: 'reset',
+        dia: 'reset',
+        showModal: false
+    });
+  } 
+  
+
   marcarFavorito(excursionId) {
+    
     this.props.postFavorito(excursionId);
+    this.gestionarComentario(excursionId);  
+    this.resetForm();
+    //esto no va aqui, sino que cuando se envie un nuevo comentario se debera llamar a esta funcion
+  }
+
+  //function GestionarComentario(excursionId, valoracion, autor, comentario) {
+  gestionarComentario(excursionId) {
+  //se llamara a esta funcion cuando se de a enviar al modal
+  /*
+  const excursionId = props.excursionId;  //viene del modal
+  //valoracion  //viene del modal
+  //autor //viene del modal
+  //comentario  //viene del modal
+
+  this.props.postComentario(excursionId, valoracion, autor, comentario);
+*/
+    console.log('de comentarios, valoracion: '+this.state.valoracion);
+    console.log('de comentarios, comentario: '+this.state.comentario);
+    console.log('de comentarios, autor: '+this.state.autor);
+
+    this.props.postComentario(excursionId, this.state.valoracion, this.state.autor, this.state.comentario);
   }
 
   render() {
