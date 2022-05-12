@@ -269,7 +269,7 @@ function DrawerNavegador() {
           options={{
             drawerIcon: ({ tintColor}) => (
               <Icon
-              name='address-card'
+              name='user'
               type='font-awesome'            
               size={24}
               color={tintColor}

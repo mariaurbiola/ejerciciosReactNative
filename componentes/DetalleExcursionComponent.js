@@ -6,6 +6,11 @@ import { connect } from 'react-redux';
 import { postComentario, postFavorito } from '../redux/ActionCreators';
 import ModalComentarios from './ModalComentsComponent';
 
+
+import * as Sharing from 'expo-sharing';
+//expo install expo-sharing
+
+
 const mapStateToProps = state => {
 
   return {
@@ -21,6 +26,9 @@ const mapDispatchToProps = dispatch => ({
   postComentario: (excursionId, valoracion, autor, comentario) => dispatch(postComentario(excursionId, valoracion, autor, comentario))
 
 })
+
+
+
 
 function RenderComentario(props) {
 
@@ -63,6 +71,12 @@ function RenderExcursion(props) {
   }
 
   if (excursion != null) {
+    
+    const excursionUrl = baseUrl + excursion.id;
+    //const excursionUrl = "file://";
+    console.log('url sharing: '+excursionUrl);
+    console.log(Sharing.isAvailableAsync());
+    //.filter((comentario) => comentario.excursionId === excursionId
     return (
       <Card>
         <Card.Title>{excursion.nombre}</Card.Title>
@@ -86,6 +100,15 @@ function RenderExcursion(props) {
           type='font-awesome'
           color='#015afc'
           onPress={() => ModalComentarios()}
+        />
+        <Icon
+          raised
+          reverse
+          name='share'
+          type='font-awesome'
+          color='#015afc'
+          onPress={() => 
+            Sharing.shareAsync(excursionUrl)}
         />
       </Card>
 

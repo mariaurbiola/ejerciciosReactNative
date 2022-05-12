@@ -3,6 +3,7 @@ import { Text } from 'react-native';
 import { Card } from 'react-native-elements';
 import { colorGaztaroaClaro, colorGaztaroaOscuro, baseUrl} from '../comun/comun';
 
+
 //Lo siguiente es para REDUX, aqui no haría falta pero lo pongo por si acaso para luego
 import { connect } from 'react-redux';
 const mapStateToProps = state => {
